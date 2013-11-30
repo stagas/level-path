@@ -1,0 +1,14 @@
+{
+  "name": "level-path",
+  "repo": "stagas/level-path",
+  "version": "0.0.1",
+  "author": "stagas",
+  "description": "sensible key / range generator for levelup",
+  "keywords": ["level", "levelup", "key", "range", "namespace"],
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "xtend": "~2.1.1"
+  },
+  "engines": { "node": "*" }
+}
