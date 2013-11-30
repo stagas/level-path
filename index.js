@@ -11,6 +11,7 @@
  * Module dependencies.
  */
 
+var fix = require('level-fix-range');
 var extend = require('xtend');
 
 /**
@@ -58,7 +59,7 @@ function path(str, defs){
     var r = extend(defs, range, arguments);
     r.start = p(r.start || r[0], range);
     r.end = p(r.end || r[1], range, { rangeEnd: true });
-    return r;
+    return fix(r);
   };
 
   return p;

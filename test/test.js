@@ -209,10 +209,10 @@ describe(".path('name/:id')", function(){
       describe("when called with both `start` and `end`", function(){
         it("should return the range from `start` to `end`", function(){
           var users = path('users/:id');
-          var range = users.range({ start: 5, end: 15 });
+          var range = users.range({ start: 5, end: 7 });
           assert.deepEqual({
             start: 'users/\xff5',
-            end: 'users/\xff15',
+            end: 'users/\xff7',
           }, {
             start: range.start,
             end: range.end
@@ -302,11 +302,11 @@ describe(".path('name/:id')", function(){
         it("should return the range from `start` to `end`", function(){
           var users = path('users/:id');
           var user_start = { id: 5 };
-          var user_end = { id: 15 };
+          var user_end = { id: 7 };
           var range = users.range({ start: user_start, end: user_end });
           assert.deepEqual({
             start: 'users/\xff5',
-            end: 'users/\xff15',
+            end: 'users/\xff7',
           }, {
             start: range.start,
             end: range.end
@@ -320,11 +320,11 @@ describe(".path('name/:id')", function(){
       describe("when called with number `start` and object `end`", function(){
         it("should return the range from `start` to `end`", function(){
           var users = path('users/:id');
-          var user_end = { id: 15 };
+          var user_end = { id: 7 };
           var range = users.range({ start: 5, end: user_end });
           assert.deepEqual({
             start: 'users/\xff5',
-            end: 'users/\xff15',
+            end: 'users/\xff7',
           }, {
             start: range.start,
             end: range.end
@@ -336,10 +336,10 @@ describe(".path('name/:id')", function(){
         it("should return the range from `start` to `end`", function(){
           var users = path('users/:id');
           var user_start = { id: 5 };
-          var range = users.range({ start: user_start, end: 15 });
+          var range = users.range({ start: user_start, end: 7 });
           assert.deepEqual({
             start: 'users/\xff5',
-            end: 'users/\xff15',
+            end: 'users/\xff7',
           }, {
             start: range.start,
             end: range.end
@@ -350,11 +350,11 @@ describe(".path('name/:id')", function(){
       describe("when called with string `start` and object `end`", function(){
         it("should return the range from `start` to `end`", function(){
           var users = path('users/:id');
-          var user_end = { id: 15 };
+          var user_end = { id: 7 };
           var range = users.range({ start: '5', end: user_end });
           assert.deepEqual({
             start: 'users/\xff5',
-            end: 'users/\xff15',
+            end: 'users/\xff7',
           }, {
             start: range.start,
             end: range.end
@@ -366,10 +366,55 @@ describe(".path('name/:id')", function(){
         it("should return the range from `start` to `end`", function(){
           var users = path('users/:id');
           var user_start = { id: 5 };
-          var range = users.range({ start: user_start, end: '15' });
+          var range = users.range({ start: user_start, end: '7' });
           assert.deepEqual({
             start: 'users/\xff5',
-            end: 'users/\xff15',
+            end: 'users/\xff7',
+          }, {
+            start: range.start,
+            end: range.end
+          });
+        })
+      })
+
+    })
+
+    describe("when passing `reverse: true`", function(){
+      describe("when passing `start`", function(){
+        it("should fix range", function(){
+          var users = path('users/:id');
+          var range = users.range({ start: 'a', reverse: true });
+          assert.deepEqual({
+            start: 'users/\xff\xff',
+            end: 'users/\xffa',
+          }, {
+            start: range.start,
+            end: range.end
+          });
+        })
+      })
+
+      describe("when passing `end`", function(){
+        it("should fix range", function(){
+          var users = path('users/:id');
+          var range = users.range({ end: 'z', reverse: true });
+          assert.deepEqual({
+            start: 'users/\xffz',
+            end: 'users/\xff',
+          }, {
+            start: range.start,
+            end: range.end
+          });
+        })
+      })
+
+      describe("when passing both `start` and `end`", function(){
+        it("should fix range", function(){
+          var users = path('users/:id');
+          var range = users.range({ start: 'a', end: 'z', reverse: true });
+          assert.deepEqual({
+            start: 'users/\xffz',
+            end: 'users/\xffa',
           }, {
             start: range.start,
             end: range.end
@@ -482,10 +527,10 @@ describe(".path('name/:some/deep/:key/:id')", function(){
       describe("when called an `end`", function(){
         it("should return the range from begin to `end`", function(){
           var users = path('users/:some/deep/:key/:id', { some: 'foo', key: 'bar' });
-          var range = users.range({ end: 15 });
+          var range = users.range({ end: 7 });
           assert.deepEqual({
             start: 'users/foo/deep/bar/\xff',
-            end: 'users/foo/deep/bar/\xff15',
+            end: 'users/foo/deep/bar/\xff7',
           }, {
             start: range.start,
             end: range.end
@@ -496,10 +541,10 @@ describe(".path('name/:some/deep/:key/:id')", function(){
       describe("when called with both `start` and `end`", function(){
         it("should return the range from `start` to `end`", function(){
           var users = path('users/:some/deep/:key/:id', { some: 'foo', key: 'bar' });
-          var range = users.range({ start: 5, end: 15 });
+          var range = users.range({ start: 5, end: 7 });
           assert.deepEqual({
             start: 'users/foo/deep/bar/\xff5',
-            end: 'users/foo/deep/bar/\xff15',
+            end: 'users/foo/deep/bar/\xff7',
           }, {
             start: range.start,
             end: range.end
@@ -587,11 +632,11 @@ describe(".path('name/:some/deep/:key/:id')", function(){
         it("should return the range from `start` to `end`", function(){
           var users = path('users/:some/deep/:key/:id', { some: 'foo', key: 'bar' });
           var user_start = { id: 5 };
-          var user_end = { id: 15 };
+          var user_end = { id: 7 };
           var range = users.range({ start: user_start, end: user_end });
           assert.deepEqual({
             start: 'users/foo/deep/bar/\xff5',
-            end: 'users/foo/deep/bar/\xff15',
+            end: 'users/foo/deep/bar/\xff7',
           }, {
             start: range.start,
             end: range.end
