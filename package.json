@@ -1,7 +1,7 @@
 {
   "name": "level-path",
   "repo": "stagas/level-path",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "stagas",
   "description": "sensible key / range generator for levelup",
   "keywords": ["level", "levelup", "key", "range", "namespace"],
