@@ -104,7 +104,7 @@ function format(tmpl, ctx){
   });
   mapped.forEach(function(el, i){
     var key = keys[i];
-    s = s.replace(key, el);
+    s = s.replace(key, key.substr(1) + '/' + el);
   });
   return s;
 }
