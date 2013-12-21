@@ -66,6 +66,18 @@ function path(str, defs){
 }
 
 /**
+ * Join `comb` to a path factory.
+ *
+ * @param {Array} comb
+ * @param {Object} defs
+ * @return {Function}
+ */
+
+path.join = function(comb, defs){
+  return path(':'+comb.join('/:'), defs);
+};
+
+/**
  * Parses keys in `s`.
  *
  * @param {String} s
